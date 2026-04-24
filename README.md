@@ -2,7 +2,6 @@
 
 A modern AI-powered chat application built with Flask and vanilla JavaScript, featuring a refined UI, real-time interactions, and context-aware responses powered by Groq’s LLaMA models.
 
----
 
 ## ✨ Features
 
@@ -17,7 +16,6 @@ A modern AI-powered chat application built with Flask and vanilla JavaScript, fe
 - 🔄 Full frontend ↔ backend integration  
 - 🧩 Scalable architecture for future features  
 
----
 
 ## 🛠 Tech Stack
 
@@ -26,7 +24,6 @@ A modern AI-powered chat application built with Flask and vanilla JavaScript, fe
 - **AI:** Groq API (LLaMA models)  
 - **Storage:** JSON-based memory system  
 
----
 
 ## 🚀 Overview
 
@@ -37,7 +34,6 @@ This project demonstrates the end-to-end implementation of an AI-powered chat sy
 - Context-aware AI responses  
 - Persistent memory across conversations  
 
----
 
 ## ⚙️ Setup
 
