@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AI Chat</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    --bg: #0b1220;
+    --card: rgba(255,255,255,0.05);
+    --border: rgba(255,255,255,0.08);
+    --text: #e5e7eb;
+    --muted: #9ca3af;
+
+    --user: linear-gradient(135deg, #4f46e5, #2563eb);
+    --ai: rgba(255,255,255,0.06);
+
+    --accent: #22c55e;
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        --bg: #f5f7fb;
+        --card: rgba(255,255,255,0.7);
+        --border: rgba(0,0,0,0.08);
+        --text: #111827;
+        --muted: #6b7280;
+        --ai: #ffffff;
+    }
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+body {
+    font-family: "Inter", sans-serif;
+    background: radial-gradient(circle at top, #1e293b, #020617);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--text);
+}
+
+/* CONTAINER */
+.container {
+    width: 100%;
+    max-width: 640px;
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+
+    background: var(--card);
+    backdrop-filter: blur(20px);
+
+    border-radius: 20px;
+    border: 1px solid var(--border);
+
+    box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+    overflow: hidden;
+}
+
+/* HEADER */
+.header {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header .title {
+    font-weight: 500;
+}
+
+.status {
+    font-size: 12px;
+    color: var(--accent);
+}
+
+/* CHAT */
+.chat {
+    flex: 1;
+    padding: 20px 16px;
+    overflow-y: auto;
+
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+/* SCROLLBAR */
+.chat::-webkit-scrollbar {
+    width: 6px;
+}
+.chat::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.1);
+    border-radius: 10px;
+}
+
+/* MESSAGE */
+.message {
+    max-width: 65%;
+    padding: 12px 14px;
+    border-radius: 14px;
+    font-size: 14px;
+    line-height: 1.6;
+
+    animation: fadeUp 0.3s ease;
+}
+
+/* USER */
+.user {
+    align-self: flex-end;
+    background: var(--user);
+    color: white;
+    box-shadow: 0 4px 12px rgba(59,130,246,0.25);
+}
+
+/* AI */
+.bot {
+    align-self: flex-start;
+    background: var(--ai);
+    border: 1px solid var(--border);
+}
+
+/* TIME */
+.time {
+    font-size: 10px;
+    margin-top: 6px;
+    opacity: 0.6;
+}
+
+/* INPUT */
+.input-area {
+    padding: 14px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    gap: 10px;
+    background: transparent;
+}
+
+input {
+    flex: 1;
+    padding: 12px 14px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text);
+    outline: none;
+    transition: 0.2s;
+}
+
+input:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 10px rgba(59,130,246,0.2);
+}
+
+button {
+    padding: 12px 16px;
+    border-radius: 12px;
+    border: none;
+    background: #22c55e;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #16a34a;
+}
+
+/* TYPING */
+.typing {
+    display: flex;
+    gap: 5px;
+}
+
+.dot {
+    width: 6px;
+    height: 6px;
+    background: var(--muted);
+    border-radius: 50%;
+    animation: bounce 1.2s infinite;
+}
+
+.dot:nth-child(2) { animation-delay: 0.2s; }
+.dot:nth-child(3) { animation-delay: 0.4s; }
+
+/* ANIMATIONS */
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bounce {
+    0%, 80%, 100% { transform: scale(0.5); }
+    40% { transform: scale(1); }
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+    .container {
+        height: 100vh;
+        border-radius: 0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <div class="title">AI Assistant</div>
+        <div class="status">● Online</div>
+    </div>
+
+    <div id="chat" class="chat"></div>
+
+    <div class="input-area">
+        <input id="input" placeholder="Ask anything..." />
+        <button onclick="sendMessage()">Send</button>
+    </div>
+
+</div>
+
+<script>
+function getTime() {
+    return new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+}
+
+function addMessage(text, sender) {
+    const chat = document.getElementById("chat");
+
+    const msg = document.createElement("div");
+    msg.classList.add("message", sender);
+
+    const formatted = text.replace(/\n/g, "<br>");
+
+    msg.innerHTML = `
+        ${formatted}
+        <div class="time">${getTime()}</div>
+    `;
+
+    chat.appendChild(msg);
+    chat.scrollTop = chat.scrollHeight;
+}
+
+function showTyping() {
+    const chat = document.getElementById("chat");
+
+    const typing = document.createElement("div");
+    typing.classList.add("message", "bot");
+    typing.id = "typing";
+
+    typing.innerHTML = `
+        <div class="typing">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+    `;
+
+    chat.appendChild(typing);
+    chat.scrollTop = chat.scrollHeight;
+}
+
+function removeTyping() {
+    const el = document.getElementById("typing");
+    if (el) el.remove();
+}
+
+async function sendMessage() {
+    const input = document.getElementById("input");
+    const text = input.value.trim();
+
+    if (!text) return;
+
+    addMessage(text, "user");
+    input.value = "";
+
+    showTyping();
+
+    const res = await fetch("/chat", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ message: text })
+    });
+
+    const data = await res.json();
+
+    removeTyping();
+    addMessage(data.reply, "bot");
+}
+
+document.getElementById("input").addEventListener("keydown", e => {
+    if (e.key === "Enter") sendMessage();
+});
+</script>
+
+</body>
+</html>
