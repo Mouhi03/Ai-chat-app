@@ -103,7 +103,7 @@ def chat():
         with open(LONG_TERM_FILE, "w") as f:
             json.dump(long_term_memory, f, indent=2)
 
-        return jsonify({"reply": "🧠 Memory saved!"})
+        return jsonify({"reply": "Memory saved!"})
 
     reply = chat_with_ai(user_input)
     return jsonify({"reply": reply})
