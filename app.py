@@ -8,7 +8,6 @@ load_dotenv()
 
 app = Flask(__name__)
 
-# ⚠️ USE ENV VARIABLE (safer)
 client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
 CHAT_HISTORY_FILE = "chats.json"
