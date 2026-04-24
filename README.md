@@ -7,23 +7,23 @@ This project showcases the end-to-end implementation of an AI-driven product, co
 Key Features :
 ----------------------------------------------
 
- Fast AI responses powered by Groq’s LLaMA models
- Real-time chat interface with smooth animations and transitions
- Persistent conversation memory for context-aware interactions
- Structured message handling with short-term and long-term memory
- Clean, modern UI with glassmorphism and responsive design
- Adaptive dark/light theme support
- Keyboard-friendly input (Enter to send)
- Typing indicators for a more natural chat experience
- Fully responsive layout for mobile and desktop
- Secure API key management using environment variables (.env)
- Backend–frontend integration via RESTful endpoints
- Modular and scalable architecture for future features
+ Fast AI responses powered by Groq’s LLaMA models.
+ Real-time chat interface with smooth animations and transitions.
+ Persistent conversation memory for context-aware interactions.
+ Structured message handling with short-term and long-term memory.
+ Clean, modern UI with glassmorphism and responsive design.
+ Adaptive dark/light theme support.
+ Keyboard-friendly input (Enter to send).
+ Typing indicators for a more natural chat experience.
+ Fully responsive layout for mobile and desktop.
+ Secure API key management using environment variables (.env).
+ Backend–frontend integration via RESTful endpoints.
+ Modular and scalable architecture for future features.
 
 Tools and technologies :
 -----------------------------------------------
 
- Frontend: HTML, CSS, JavaScript (Vanilla)
- Backend: Python (Flask)
- AI Integration: Groq API (LLaMA models)
- Storage: JSON-based local persistence
+ Frontend: HTML, CSS, JavaScript (Vanilla).
+ Backend: Python (Flask).
+ AI Integration: Groq API (LLaMA models).
+ Storage: JSON-based local persistence.
