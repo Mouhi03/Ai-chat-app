@@ -81,7 +81,7 @@ Ai-chat-app/
 
 ### 2. Récupérer le projet
 ```bash
-git clone https://github.com/<votre-compte>/Ai-chat-app.git
+git clone https://github.com/Mouhi03/Ai-chat-app.git
 cd Ai-chat-app
 ```
 
