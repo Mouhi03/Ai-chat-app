@@ -1,309 +1,314 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>AI Chat</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-
-<style>
-:root {
-    --bg: #0b1220;
-    --card: rgba(255,255,255,0.05);
-    --border: rgba(255,255,255,0.08);
-    --text: #e5e7eb;
-    --muted: #9ca3af;
-
-    --user: linear-gradient(135deg, #4f46e5, #2563eb);
-    --ai: rgba(255,255,255,0.06);
-
-    --accent: #22c55e;
-}
-
-@media (prefers-color-scheme: light) {
-    :root {
-        --bg: #f5f7fb;
-        --card: rgba(255,255,255,0.7);
-        --border: rgba(0,0,0,0.08);
-        --text: #111827;
-        --muted: #6b7280;
-        --ai: #ffffff;
-    }
-}
-
-* {
-    box-sizing: border-box;
-    margin: 0;
-}
-
-body {
-    font-family: "Inter", sans-serif;
-    background: radial-gradient(circle at top, #1e293b, #020617);
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: var(--text);
-}
-
-/* CONTAINER */
-.container {
-    width: 100%;
-    max-width: 640px;
-    height: 90vh;
-    display: flex;
-    flex-direction: column;
-
-    background: var(--card);
-    backdrop-filter: blur(20px);
-
-    border-radius: 20px;
-    border: 1px solid var(--border);
-
-    box-shadow: 0 20px 50px rgba(0,0,0,0.4);
-    overflow: hidden;
-}
-
-/* HEADER */
-.header {
-    padding: 16px 20px;
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.header .title {
-    font-weight: 500;
-}
-
-.status {
-    font-size: 12px;
-    color: var(--accent);
-}
-
-/* CHAT */
-.chat {
-    flex: 1;
-    padding: 20px 16px;
-    overflow-y: auto;
-
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-}
-
-/* SCROLLBAR */
-.chat::-webkit-scrollbar {
-    width: 6px;
-}
-.chat::-webkit-scrollbar-thumb {
-    background: rgba(255,255,255,0.1);
-    border-radius: 10px;
-}
-
-/* MESSAGE */
-.message {
-    max-width: 65%;
-    padding: 12px 14px;
-    border-radius: 14px;
-    font-size: 14px;
-    line-height: 1.6;
-
-    animation: fadeUp 0.3s ease;
-}
-
-/* USER */
-.user {
-    align-self: flex-end;
-    background: var(--user);
-    color: white;
-    box-shadow: 0 4px 12px rgba(59,130,246,0.25);
-}
-
-/* AI */
-.bot {
-    align-self: flex-start;
-    background: var(--ai);
-    border: 1px solid var(--border);
-}
-
-/* TIME */
-.time {
-    font-size: 10px;
-    margin-top: 6px;
-    opacity: 0.6;
-}
-
-/* INPUT */
-.input-area {
-    padding: 14px;
-    border-top: 1px solid var(--border);
-    display: flex;
-    gap: 10px;
-    background: transparent;
-}
-
-input {
-    flex: 1;
-    padding: 12px 14px;
-    border-radius: 12px;
-    border: 1px solid var(--border);
-    background: transparent;
-    color: var(--text);
-    outline: none;
-    transition: 0.2s;
-}
-
-input:focus {
-    border-color: #3b82f6;
-    box-shadow: 0 0 10px rgba(59,130,246,0.2);
-}
-
-button {
-    padding: 12px 16px;
-    border-radius: 12px;
-    border: none;
-    background: #22c55e;
-    font-weight: 500;
-    cursor: pointer;
-}
-
-button:hover {
-    background: #16a34a;
-}
-
-/* TYPING */
-.typing {
-    display: flex;
-    gap: 5px;
-}
-
-.dot {
-    width: 6px;
-    height: 6px;
-    background: var(--muted);
-    border-radius: 50%;
-    animation: bounce 1.2s infinite;
-}
-
-.dot:nth-child(2) { animation-delay: 0.2s; }
-.dot:nth-child(3) { animation-delay: 0.4s; }
-
-/* ANIMATIONS */
-@keyframes fadeUp {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes bounce {
-    0%, 80%, 100% { transform: scale(0.5); }
-    40% { transform: scale(1); }
-}
-
-/* MOBILE */
-@media (max-width: 600px) {
-    .container {
-        height: 100vh;
-        border-radius: 0;
-    }
-}
-</style>
+<meta name="theme-color" content="#0d0e11">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%233b82f6'/%3E%3Cpath d='M9 10.5A1.5 1.5 0 0 1 10.5 9h11a1.5 1.5 0 0 1 1.5 1.5v7a1.5 1.5 0 0 1-1.5 1.5H15l-4 3.5V19h-.5A1.5 1.5 0 0 1 9 17.5z' fill='none' stroke='white' stroke-width='1.8' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
-
 <body>
 
-<div class="container">
+<div class="app" id="app">
 
-    <div class="header">
-        <div class="title">AI Assistant</div>
-        <div class="status">● Online</div>
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="logo"><i data-icon="chat" data-size="16"></i></div>
+      <div class="brand-name">AI Chat</div>
+      <button class="icon-btn only-mobile" id="closeSidebar" aria-label="Close"><i data-icon="x"></i></button>
     </div>
 
-    <div id="chat" class="chat"></div>
+    <button class="btn btn-secondary new-chat" id="newChatBtn">
+      <i data-icon="plus" data-size="16"></i><span data-i18n="newChat">New chat</span>
+      <kbd>Ctrl K</kbd>
+    </button>
 
-    <div class="input-area">
-        <input id="input" placeholder="Ask anything..." />
-        <button onclick="sendMessage()">Send</button>
+    <div class="search">
+      <i data-icon="search" data-size="15"></i>
+      <input id="chatSearch" type="search" data-i18n-placeholder="searchChats" placeholder="Search" autocomplete="off">
     </div>
 
+    <nav class="chat-list" id="chatList" aria-label="Conversations"></nav>
+
+    <div class="sidebar-footer">
+      <div class="conn" id="sidebarConn"><span class="dot" id="sidebarDot"></span><span id="sidebarConnText"></span></div>
+      <button class="side-btn" id="openSettings"><i data-icon="sliders" data-size="16"></i><span data-i18n="settings">Settings</span></button>
+    </div>
+  </aside>
+  <div class="backdrop" id="backdrop"></div>
+
+  <!-- ============ MAIN ============ -->
+  <main class="main">
+    <header class="topbar">
+      <button class="icon-btn only-mobile" id="openSidebar" aria-label="Menu"><i data-icon="menu"></i></button>
+      <h1 class="topbar-title" id="chatTitle">AI Chat</h1>
+
+      <div class="chip-wrap">
+        <button class="model-chip" id="modelChip" aria-haspopup="true" aria-expanded="false">
+          <span class="dot" id="chipDot"></span>
+          <span class="chip-provider" id="chipProvider"></span>
+          <span class="chip-sep"></span>
+          <span class="chip-model" id="chipModel"></span>
+          <i data-icon="chevron" data-size="14"></i>
+        </button>
+
+        <div class="popover" id="modelPop" role="dialog">
+          <div class="pop-label" data-i18n="provider">Provider</div>
+          <div class="segmented" id="popProviders">
+            <button data-provider="gemini">Gemini API</button>
+            <button data-provider="ollama">Ollama</button>
+          </div>
+          <div class="pop-label" data-i18n="model">Model</div>
+          <select id="popModel"></select>
+          <div class="pop-status" id="popStatus"></div>
+          <button class="link-btn" id="popMore" data-i18n="providerSettings">Provider settings</button>
+        </div>
+      </div>
+
+      <div class="topbar-actions">
+        <button class="icon-btn" id="exportBtn" data-i18n-title="export" title="Export"><i data-icon="download"></i></button>
+        <button class="icon-btn" id="themeBtn" data-i18n-title="toggleTheme" title="Theme"><i data-icon="moon" id="themeIcon"></i></button>
+        <button class="icon-btn" id="topSettings" data-i18n-title="settings" title="Settings"><i data-icon="sliders"></i></button>
+      </div>
+    </header>
+
+    <section class="messages" id="messages" aria-live="polite">
+      <div class="welcome" id="welcome">
+        <div class="welcome-mark"><i data-icon="chat" data-size="26"></i></div>
+        <h2 id="welcomeTitle">How can I help?</h2>
+        <p data-i18n="welcomeSub">Ask a question, paste some text, or attach an image to analyze.</p>
+        <div class="notice" id="setupNotice" hidden>
+          <i data-icon="alert" data-size="18"></i>
+          <div><div id="setupText"></div><button class="link-btn" id="setupBtn" data-i18n="providerSettings">Provider settings</button></div>
+        </div>
+        <div class="cards" id="cards"></div>
+      </div>
+    </section>
+
+    <div class="composer-wrap">
+      <button class="scroll-down" id="scrollDown" aria-label="Scroll down"><i data-icon="arrowdown" data-size="16"></i></button>
+      <div class="composer" id="composer">
+        <div class="attachments" id="attachments"></div>
+        <div class="composer-row">
+          <button class="icon-btn" id="attachBtn" data-i18n-title="attachImage" title="Attach image"><i data-icon="image"></i></button>
+          <input type="file" id="fileInput" accept="image/png,image/jpeg,image/webp,image/gif" multiple hidden>
+          <textarea id="input" rows="1" data-i18n-placeholder="placeholder" placeholder="Message" aria-label="Message"></textarea>
+          <button class="icon-btn" id="micBtn" data-i18n-title="voice" title="Voice input"><i data-icon="mic"></i></button>
+          <button class="send-btn" id="sendBtn" data-i18n-title="send" title="Send" aria-label="Send"><i data-icon="send" data-size="18"></i></button>
+        </div>
+      </div>
+      <p class="hint" data-i18n="hint">Enter to send, Shift+Enter for a new line. Paste or drop images to attach them.</p>
+    </div>
+  </main>
 </div>
 
-<script>
-function getTime() {
-    return new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-}
+<!-- ============ DROP OVERLAY / LIGHTBOX ============ -->
+<div class="drop-overlay" id="dropOverlay"><div><i data-icon="image" data-size="22"></i><span data-i18n="dropHere">Drop images to attach</span></div></div>
+<div class="lightbox" id="lightbox"><img id="lightboxImg" alt=""></div>
 
-function addMessage(text, sender) {
-    const chat = document.getElementById("chat");
+<!-- ============ SETTINGS ============ -->
+<div class="modal" id="settingsModal" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+  <div class="modal-card">
+    <div class="modal-head">
+      <h3 id="settingsTitle" data-i18n="settings">Settings</h3>
+      <button class="icon-btn" id="closeSettings" aria-label="Close"><i data-icon="x"></i></button>
+    </div>
 
-    const msg = document.createElement("div");
-    msg.classList.add("message", sender);
+    <div class="tabs" id="tabs">
+      <button class="tab active" data-tab="general" data-i18n="tabGeneral">General</button>
+      <button class="tab" data-tab="provider" data-i18n="tabProvider">Provider</button>
+      <button class="tab" data-tab="behavior" data-i18n="tabBehavior">Behavior</button>
+      <button class="tab" data-tab="memory" data-i18n="tabMemory">Memory</button>
+      <button class="tab" data-tab="data" data-i18n="tabData">Data</button>
+    </div>
 
-    const formatted = text.replace(/\n/g, "<br>");
+    <div class="modal-body">
 
-    msg.innerHTML = `
-        ${formatted}
-        <div class="time">${getTime()}</div>
-    `;
-
-    chat.appendChild(msg);
-    chat.scrollTop = chat.scrollHeight;
-}
-
-function showTyping() {
-    const chat = document.getElementById("chat");
-
-    const typing = document.createElement("div");
-    typing.classList.add("message", "bot");
-    typing.id = "typing";
-
-    typing.innerHTML = `
-        <div class="typing">
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
+      <!-- GENERAL -->
+      <div class="pane active" data-pane="general">
+        <label class="field">
+          <span class="label" data-i18n="uiLanguage">Interface language</span>
+          <select id="s_ui_language">
+            <option value="auto">Auto</option>
+            <option value="fr">Français</option>
+            <option value="en">English</option>
+          </select>
+        </label>
+        <label class="field">
+          <span class="label" data-i18n="theme">Theme</span>
+          <select id="s_theme">
+            <option value="dark" data-i18n="themeDark">Dark</option>
+            <option value="light" data-i18n="themeLight">Light</option>
+            <option value="auto" data-i18n="themeAuto">System</option>
+          </select>
+        </label>
+        <div class="field">
+          <span class="label" data-i18n="accent">Accent color</span>
+          <div class="swatches" id="swatches"></div>
         </div>
-    `;
+        <label class="field">
+          <span class="label"><span data-i18n="fontSize">Text size</span><b class="val" id="v_font_size"></b></span>
+          <input type="range" id="s_font_size" min="12" max="20" step="1">
+        </label>
+        <label class="field">
+          <span class="label" data-i18n="userName">Your name (optional)</span>
+          <input type="text" id="s_user_name" maxlength="50" data-i18n-placeholder="userNamePh" placeholder="">
+        </label>
+        <label class="field row">
+          <span class="label" data-i18n="streaming">Stream responses as they are generated</span>
+          <input type="checkbox" id="s_stream" class="switch">
+        </label>
+      </div>
 
-    chat.appendChild(typing);
-    chat.scrollTop = chat.scrollHeight;
-}
+      <!-- PROVIDER -->
+      <div class="pane" data-pane="provider">
+        <div class="provider-cards" id="providerCards">
+          <button class="pcard" data-provider="gemini">
+            <i data-icon="cloud" data-size="20"></i>
+            <span class="pcard-title">Gemini API</span>
+            <span class="pcard-sub" data-i18n="gemSub">Google cloud models. Requires an API key.</span>
+          </button>
+          <button class="pcard" data-provider="ollama">
+            <i data-icon="server" data-size="20"></i>
+            <span class="pcard-title">Ollama</span>
+            <span class="pcard-sub" data-i18n="ollSub">Models running locally on your machine.</span>
+          </button>
+        </div>
 
-function removeTyping() {
-    const el = document.getElementById("typing");
-    if (el) el.remove();
-}
+        <!-- Gemini -->
+        <div class="section" id="gemSection">
+          <div class="status-row"><span class="dot" id="gemDot"></span><span id="gemStatus"></span></div>
+          <div class="field">
+            <span class="label" data-i18n="apiKey">API key</span>
+            <div class="key-row">
+              <input type="password" id="keyInput" autocomplete="off" spellcheck="false" data-i18n-placeholder="keyPh" placeholder="">
+              <button class="btn btn-primary" id="keySave" data-i18n="saveKey">Save</button>
+              <button class="btn btn-secondary" id="keyRemove" data-i18n="removeKey" hidden>Remove</button>
+            </div>
+            <small class="muted" id="keyInfo"></small>
+            <small class="test-result" id="keyResult"></small>
+          </div>
+          <label class="field">
+            <span class="label" data-i18n="model">Model</span>
+            <select id="s_gemini_model"></select>
+          </label>
+          <p class="muted" id="gemHelp"></p>
+        </div>
 
-async function sendMessage() {
-    const input = document.getElementById("input");
-    const text = input.value.trim();
+        <!-- Ollama -->
+        <div class="section" id="ollSection">
+          <div class="status-row"><span class="dot" id="ollDot"></span><span id="ollStatus"></span></div>
+          <label class="field">
+            <span class="label" data-i18n="ollHost">Server address</span>
+            <input type="text" id="s_ollama_host" spellcheck="false" placeholder="http://localhost:11434">
+          </label>
+          <label class="field">
+            <span class="label" data-i18n="model">Model</span>
+            <select id="s_ollama_model"></select>
+          </label>
+          <label class="field">
+            <span class="label" data-i18n="ollVision">Vision model (for images)</span>
+            <select id="s_ollama_vision_model"></select>
+            <small class="muted" data-i18n="ollVisionHelp">Used automatically when a message contains an image. Install one with: ollama pull llava</small>
+          </label>
+          <label class="field">
+            <span class="label"><span data-i18n="numCtx">Context window (tokens)</span><b class="val" id="v_num_ctx"></b></span>
+            <input type="range" id="s_num_ctx" min="2048" max="32768" step="2048">
+            <small class="muted" data-i18n="numCtxHelp">Larger values remember more but use more memory.</small>
+          </label>
+        </div>
 
-    if (!text) return;
+        <div class="test-row">
+          <button class="btn btn-secondary" id="testBtn" data-i18n="testConn">Test connection</button>
+          <span class="test-result" id="testResult"></span>
+        </div>
+      </div>
 
-    addMessage(text, "user");
-    input.value = "";
+      <!-- BEHAVIOR -->
+      <div class="pane" data-pane="behavior">
+        <label class="field">
+          <span class="label" data-i18n="personality">Personality</span>
+          <select id="s_personality">
+            <option value="balanced" data-i18n="p_balanced">Balanced</option>
+            <option value="concise" data-i18n="p_concise">Concise</option>
+            <option value="friendly" data-i18n="p_friendly">Friendly</option>
+            <option value="teacher" data-i18n="p_teacher">Teacher</option>
+            <option value="developer" data-i18n="p_developer">Developer</option>
+            <option value="custom" data-i18n="p_custom">Custom</option>
+          </select>
+        </label>
+        <label class="field" id="customPromptField" hidden>
+          <span class="label" data-i18n="customPrompt">Custom instructions</span>
+          <textarea id="s_custom_prompt" rows="4" maxlength="2000" data-i18n-placeholder="customPromptPh" placeholder=""></textarea>
+        </label>
+        <label class="field">
+          <span class="label" data-i18n="replyLanguage">Reply language</span>
+          <select id="s_reply_language">
+            <option value="auto" data-i18n="rl_auto">Same as my message</option>
+            <option value="fr">Français</option>
+            <option value="en">English</option>
+            <option value="es">Español</option>
+            <option value="de">Deutsch</option>
+            <option value="ar">العربية</option>
+          </select>
+        </label>
+        <label class="field">
+          <span class="label"><span data-i18n="temperature">Creativity</span><b class="val" id="v_temperature"></b></span>
+          <input type="range" id="s_temperature" min="0" max="1.5" step="0.1">
+          <small class="muted" data-i18n="temperatureHelp">Low values are precise, high values are more creative.</small>
+        </label>
+        <label class="field">
+          <span class="label"><span data-i18n="maxTokens">Maximum response length</span><b class="val" id="v_max_tokens"></b></span>
+          <input type="range" id="s_max_tokens" min="256" max="8192" step="256">
+        </label>
+        <label class="field">
+          <span class="label"><span data-i18n="contextMessages">Messages kept in context</span><b class="val" id="v_context_messages"></b></span>
+          <input type="range" id="s_context_messages" min="2" max="60" step="2">
+        </label>
+      </div>
 
-    showTyping();
+      <!-- MEMORY -->
+      <div class="pane" data-pane="memory">
+        <label class="field row">
+          <span class="label" data-i18n="useMemory">Use long-term memory</span>
+          <input type="checkbox" id="s_use_memory" class="switch">
+        </label>
+        <p class="muted" id="memoryHelp"></p>
+        <div class="mem-add">
+          <input type="text" id="memInput" maxlength="300" data-i18n-placeholder="memoryPh" placeholder="">
+          <button class="btn btn-primary" id="memAdd" data-i18n="add">Add</button>
+        </div>
+        <ul class="mem-list" id="memList"></ul>
+      </div>
 
-    const res = await fetch("/chat", {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({ message: text })
-    });
+      <!-- DATA -->
+      <div class="pane" data-pane="data">
+        <div class="field">
+          <span class="label" data-i18n="exportChat">Export current conversation</span>
+          <div><button class="btn btn-secondary" id="exportBtn2" data-i18n="exportMd">Download as Markdown</button></div>
+        </div>
+        <div class="field danger">
+          <span class="label" data-i18n="dangerZone">Danger zone</span>
+          <p class="muted" data-i18n="wipeHelp">Deletes every conversation and uploaded image. Settings and memory are kept.</p>
+          <div><button class="btn btn-danger" id="wipeBtn" data-i18n="wipe">Delete all conversations</button></div>
+        </div>
+      </div>
 
-    const data = await res.json();
+    </div>
+  </div>
+</div>
 
-    removeTyping();
-    addMessage(data.reply, "bot");
-}
+<div class="toasts" id="toasts"></div>
 
-document.getElementById("input").addEventListener("keydown", e => {
-    if (e.key === "Enter") sendMessage();
-});
-</script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.6/purify.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
 </body>
 </html>
